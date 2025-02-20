@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming Demo</title>
+    
+    <!-- Include video.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.10.0/video-js.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .video-container {
+            width: 100vw;
+            height: calc(100vh - 150px); /* Account for header content */
+            margin: 0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        .video-container > * {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        video, video-js {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-content">
+        <h1>Video Streaming Demo</h1>
+        
+        <div class="controls">
+            <button onclick="playSimpleVideo()">Play Simple MP4</button>
+            <button onclick="playRangeVideo()">Play MP4 with Range Support</button>
+            <button onclick="playHLSVideo()">Play HLS Stream</button>
+        </div>
+    </div>
+
+    <div class="video-container">
+        <!-- Video player for both regular and HLS -->
+        <video id="videoPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls>
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Include video.js and its HLS plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.10.0/video.min.js"></script>
+
+    <script>
+        let player;
+        const videoElement = document.getElementById('videoPlayer');
+
+        // Initialize video.js player
+        document.addEventListener('DOMContentLoaded', function() {
+            player = videojs('videoPlayer', {
+                fluid: true,
+                controls: true,
+                html5: {
+                    hls: {
+                        enableLowInitialPlaylist: true,
+                        smoothQualityChange: true,
+                        overrideNative: true
+                    }
+                }
+            });
+        });
+
+        function hideAllPlayers() {
+            player?.pause();
+        }
+
+        function playSimpleVideo() {
+            hideAllPlayers();
+            player.src({ src: '/video/simple', type: 'video/mp4' });
+            player.play();
+        }
+
+        function playRangeVideo() {
+            hideAllPlayers();
+            player.src({ src: '/video/range', type: 'video/mp4' });
+            player.play();
+        }
+
+        function playHLSVideo() {
+            hideAllPlayers();
+            player.src({ src: '/hls/master.m3u8', type: 'application/x-mpegURL' });
+            player.play();
+        }
+    </script>
+</body>
+</html>
