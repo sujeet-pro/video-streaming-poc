@@ -1,0 +1,17 @@
+{
+  "name": "serve-simple-video",
+  "version": "1.0.0",
+  "description": "Simple video serving demo with and without range requests",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types index.ts",
+    "check:types": "tsc --noEmit"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+} 

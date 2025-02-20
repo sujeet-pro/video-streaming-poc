@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        video {
+            width: 100%;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Streaming Demo</h1>
+    <div>
+        <button onclick="loadVideo('/v1.mp4')">Load Video without Range Support</button>
+        <button onclick="loadVideo('/v2.mp4')">Load Video with Range Support</button>
+    </div>
+    <div style="margin: 20px 0;">
+        <a href="/adaptive-streaming" style="padding: 10px 20px; background-color: #f0f0f0; text-decoration: none; color: #333; border-radius: 4px;">
+            Try Adaptive Streaming (HLS) →
+        </a>
+    </div>
+    <video id="videoPlayer" controls>
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        function loadVideo(url) {
+            const video = document.getElementById('videoPlayer');
+            video.src = url;
+            video.load();
+            video.play();
+        }
+    </script>
+</body>
+</html> 
